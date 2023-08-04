@@ -1,17 +1,17 @@
 $(document).ready(function () {
-  let amenity_ids = [];
+  const amenityIds = [];
   $('DIV#amenities input[type="checkbox"]').on('change', function (event) {
-    const amenity_id = $(this).data('id');
+    const amenityId = $(this).data('id');
 
     if (event.target.checked) {
-      amenity_ids.push(amenity_id);
+      amenityIds.push(amenityId);
     } else {
-      const index = amenity_ids.indexOf(amenity_id);
+      const index = amenityIds.indexOf(amenityId);
       if (index !== -1) {
-        amenity_ids.splice(index, 1);
+        amenityIds.splice(index, 1);
       }
     }
 
-    $('DIV#amenities H4').text(amenity_ids.join(', '));
+    $('DIV#amenities H4').text(amenityIds.join(', '));
   });
 });
