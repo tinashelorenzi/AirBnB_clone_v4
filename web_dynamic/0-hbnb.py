@@ -6,9 +6,13 @@ Routes:
     /hbnb: HBnB home page.
 """
 from models import storage
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
 from flask import Flask
 from flask import render_template
-from uuid import uuid4
+import uuid
 
 app = Flask(__name__)
 
@@ -16,12 +20,24 @@ app = Flask(__name__)
 @app.route("/0-hbnb", strict_slashes=False)
 def hbnb():
     """Displays the main HBnB filters HTML page."""
-    states = storage.all("State")
-    amenities = storage.all("Amenity")
-    places = storage.all("Place")
-    return render_template(
-            "./0-hbnb.html", states=states, amenities=amenities, places=places,
-            cache_id=uuid4())
+    states = storage.all(State).values()
+    states = sorted(states, key=lambda k: k.name)
+    st_ct = []
+
+    for state in states:
+        st_ct.append([state, sorted(state.cities, key=lambda k: k.name)])
+
+    amenities = storage.all(Amenity).values()
+    amenities = sorted(amenities, key=lambda k: k.name)
+
+    places = storage.all(Place).values()
+    places = sorted(places, key=lambda k: k.name)
+
+    return render_template('0-hbnb.html',
+                           states=st_ct,
+                           amenities=amenities,
+                           places=places,
+                           cache_id=uuid.uuid4())
 
 
 @app.teardown_appcontext
