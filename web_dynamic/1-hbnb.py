@@ -20,7 +20,7 @@ def hbnb():
     amenities = storage.all("Amenity")
     places = storage.all("Place")
     return render_template(
-            "./0-hbnb.html", states=states, amenities=amenities, places=places,
+            "./1-hbnb.html", states=states, amenities=amenities, places=places,
             cache_id=uuid4())
 
 
