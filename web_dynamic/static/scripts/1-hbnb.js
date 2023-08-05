@@ -1,17 +1,24 @@
 $(document).ready(function () {
   const amenityIds = [];
-  $('DIV#amenities input[type="checkbox"]').on('change', function (event) {
+  const amenityNames = [];
+  $('DIV.amenities input[type="checkbox"]').on('change', function () {
     const amenityId = $(this).data('id');
+    const amenityName = $(this).data('name');
 
-    if (event.target.checked) {
+    if (this.checked) {
       amenityIds.push(amenityId);
+      amenityNames.push(amenityName);
     } else {
-      const index = amenityIds.indexOf(amenityId);
-      if (index !== -1) {
-        amenityIds.splice(index, 1);
+      const indexId = amenityIds.indexOf(amenityId);
+      const indexName = amenityNames.indexOf(amenityName);
+      if (indexId !== -1) {
+        amenityIds.splice(indexId, 1);
+      }
+      if (indexName !== -1) {
+        amenityNames.splice(indexName, 1);
       }
     }
 
-    $('DIV#amenities H4').text(amenityIds.join(', '));
+    $('DIV.amenities H4').text(amenityNames.join(', '));
   });
 });
